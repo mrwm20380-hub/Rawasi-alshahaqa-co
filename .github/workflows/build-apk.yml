@@ -24,7 +24,7 @@ jobs:
         run: |
           rm -rf app
           mkdir app
-          unzip -q "rawasi_alshahaqa_v9.zip" -d app
+          unzip -q "rawasi_alshahaqa_v10.zip" -d app
 
       - name: Create modern Android project
         working-directory: app
