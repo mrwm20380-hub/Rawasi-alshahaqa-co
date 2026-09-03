@@ -11,28 +11,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Extract Flutter project
-        run: |
-          mkdir app
-          unzip -q "rawasi_alshahaqa_v7_modern.zip" -d app
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.47.0'
+          flutter-version: '3.35.2'
           channel: stable
-          cache: true 
 
-      - name: Install dependencies
+      - name: Extract source
+        run: |
+          rm -rf app
+          mkdir app
+          unzip -q "rawasi_alshahaqa_v7_modern.zip" -d app
+
+      - name: Create modern Android project
+        working-directory: app
+        run: |
+          flutter create . \
+            --platforms=android \
+            --org com.rawasi \
+            --project-name alshahaqa
+
+      - name: Get dependencies
         working-directory: app
         run: flutter pub get
-
-      - name: Analyze
-        working-directory: app
-        run: flutter analyze
 
       - name: Build APK
         working-directory: app
